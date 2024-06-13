@@ -135,6 +135,7 @@ public class Main {
                         case 2 -> {
                             // Actualizar el saldo (se usa un valor fijo de 2000 para el ejemplo)
                             userfile.updateBalance(user, pass, "2000");
+                            System.out.println("Hola git");
                         }
 
                         case 3 -> {
