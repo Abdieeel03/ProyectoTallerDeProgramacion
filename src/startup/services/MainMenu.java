@@ -17,12 +17,15 @@ public class MainMenu {
                 3) Salir
             Seleccione una opcion [1-3]:
             """;
-    private final String DEFAULTTEXT_1 = "**DEJE EL APARTADO EN BLANCO SI DESEA CANCELAR LA OPERACION**\n";
+    protected final String DEFAULTTEXT_1 = "**DEJE EL APARTADO EN BLANCO SI DESEA CANCELAR LA OPERACION**\n";
     private static String user; // Nombre de usuario
     private static String pass; // Contraseña
     private static String accountnumber; // Número de cuenta
     private static String balance; // Saldo
-    private boolean isEmpty, isAuth, userFound, accountFound; // Variables de estado
+    protected static boolean isEmpty; // Variables de estado
+    private static boolean isAuth;
+    private static boolean userFound;
+    private static boolean accountFound;
     private FileIO userfile; // Objeto para manejar la interacción con el archivo de usuarios
 
     // Constructor con parámetros
@@ -56,7 +59,7 @@ public class MainMenu {
     }
 
     public void setIsEmpty(boolean isEmpty) {
-        this.isEmpty = isEmpty;
+        MainMenu.isEmpty = isEmpty;
     }
 
     public boolean isUserFound() {
@@ -64,7 +67,7 @@ public class MainMenu {
     }
 
     public void setUserFound(boolean userFound) {
-        this.userFound = userFound;
+        MainMenu.userFound = userFound;
     }
 
     public boolean isAccountFound() {
@@ -72,11 +75,11 @@ public class MainMenu {
     }
 
     public void setAccountFound(boolean accountFound) {
-        this.accountFound = accountFound;
+        MainMenu.accountFound = accountFound;
     }
 
     public void setIsAuth(boolean isAuth) {
-        this.isAuth = isAuth;
+        MainMenu.isAuth = isAuth;
     }
 
     // Métodos para obtener y establecer los datos del usuario
@@ -94,7 +97,7 @@ public class MainMenu {
 
     public void setPass(String pass) {
         if (isEmptyPass(pass)) {
-            this.isEmpty = true;
+            MainMenu.isEmpty = true;
             return;
         }
         MainMenu.pass = pass;
@@ -155,9 +158,9 @@ public class MainMenu {
 
     // Método para verificar la disponibilidad del usuario
     public void verifyUser(Scanner sc, String user) {
-        this.isEmpty = false;
+        MainMenu.isEmpty = false;
         if (isEmptyUser(user)) {
-            this.isEmpty = true;
+            MainMenu.isEmpty = true;
             return;
         }
         while (true) {
@@ -170,7 +173,7 @@ public class MainMenu {
                 System.out.print(DEFAULTTEXT_1 + "Ingrese su nuevo usuario: ");
                 user = sc.nextLine();
                 if (isEmptyUser(user)) {
-                    this.isEmpty = true;
+                    MainMenu.isEmpty = true;
                     return;
                 }
             }
@@ -179,9 +182,9 @@ public class MainMenu {
 
     // Método para verificar la disponibilidad del número de cuenta
     public void verifyAccount(Scanner sc, String accountnumber) {
-        this.isEmpty = false;
+        MainMenu.isEmpty = false;
         if (isEmptyAccount(accountnumber)) {
-            this.isEmpty = true;
+            MainMenu.isEmpty = true;
             return;
         }
         while (true) {
@@ -193,7 +196,7 @@ public class MainMenu {
                     System.out.print(DEFAULTTEXT_1 + "Ingrese su nuevo número de cuenta (8 digitos): ");
                     accountnumber = sc.nextLine();
                     if (isEmptyAccount(accountnumber)) {
-                        this.isEmpty = true;
+                        MainMenu.isEmpty = true;
                         return;
                     }
                     continue;
@@ -207,7 +210,7 @@ public class MainMenu {
                     System.out.print(DEFAULTTEXT_1 + "Ingrese su nuevo número de cuenta (8 digitos): ");
                     accountnumber = sc.nextLine();
                     if (isEmptyAccount(accountnumber)) {
-                        this.isEmpty = true;
+                        MainMenu.isEmpty = true;
                         return;
                     }
                 }
@@ -216,7 +219,7 @@ public class MainMenu {
                 System.out.print(DEFAULTTEXT_1 + "Ingrese su nuevo número de cuenta (8 digitos): ");
                 accountnumber = sc.nextLine();
                 if (isEmptyAccount(accountnumber)) {
-                    this.isEmpty = true;
+                    MainMenu.isEmpty = true;
                     return;
                 }
             }
@@ -225,9 +228,9 @@ public class MainMenu {
 
     // Método para verificar la validez del saldo inicial
     public void verifyBalance(Scanner sc, String balance) {
-        this.isEmpty = false;
+        MainMenu.isEmpty = false;
         if (isEmptyBalance(balance)) {
-            this.isEmpty = true;
+            MainMenu.isEmpty = true;
             return;
         }
         while (true) {
@@ -241,7 +244,7 @@ public class MainMenu {
                 System.out.print(DEFAULTTEXT_1 + "Ingrese su saldo inicial: ");
                 balance = sc.nextLine();
                 if (isEmptyBalance(balance)) {
-                    this.isEmpty = true;
+                    MainMenu.isEmpty = true;
                     break;
                 }
             }
@@ -265,7 +268,7 @@ public class MainMenu {
     // Método para iniciar sesión
     public boolean login(String user, String pass) {
         userfile.readData(user, pass);
-        return this.isAuth;
+        return MainMenu.isAuth;
     }
 
 }

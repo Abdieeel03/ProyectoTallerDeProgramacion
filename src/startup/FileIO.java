@@ -119,15 +119,31 @@ public class FileIO {
     }
 
     // Método para actualizar el saldo y guardarlo en el archivo
-    public void updateBalance(String user, String pass, String newBalance) {
+    public void updateBalance(String user, String pass, String amount, int option) {
+        double userBalance, newBalance;
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file));
                 PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data[0].equals(user) && data[1].equals(pass)) {
-                    data[3] = newBalance; // Actualiza el saldo
-                    line = String.join(",", data);
+                    userBalance=Double.parseDouble(data[3]);
+                    switch (option) {
+                        case 1:
+                            newBalance = userBalance + (Double.parseDouble(amount));
+                            data[3] = String.valueOf(newBalance); // Actualiza el saldo
+                            line = String.join(",", data);
+                            break;
+                        case 2:
+                            if (userBalance==0){
+                                System.err.println("No tiene saldo suficiente para realizar esta operación!");
+                                return;
+                            }
+                            newBalance = (Double.parseDouble(data[3])) - (Double.parseDouble(amount));
+                            data[3] = String.valueOf(newBalance); // Actualiza el saldo
+                            line = String.join(",", data);
+                            break;
+                    }
                 }
                 writer.println(line);
             }

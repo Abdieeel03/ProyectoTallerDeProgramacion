@@ -17,7 +17,7 @@ public class Main {
         // Declaración de variables
         Scanner sc = new Scanner(System.in); // Objeto para leer la entrada del usuario
         userfile.init(mainMenu); // Inicializa el menú principal con el objeto FileIO
-        String user = null, pass = null, accountnumber, balance; // Variables para datos del usuario
+        String user = null, pass = null, accountnumber, balance, amount; // Variables para datos del usuario
 
         // Verificar si el archivo de usuarios existe, si no, crear uno nuevo
         if (!userfile.usernames_file.exists()) {
@@ -133,18 +133,28 @@ public class Main {
                         }
 
                         case 2 -> {
-                            // Actualizar el saldo (se usa un valor fijo de 2000 para el ejemplo)
-                            userfile.updateBalance(user, pass, "2000");
-                            System.out.println("Hola git");
+                            System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese el monto a depositar: ");
+                            amount = sc.nextLine();
+                            op.verifyBalance(sc, amount);
+                            if (op.isIsEmpty()) {
+                                break;
+                            }
+                            option=1; // DEPOSITO
+                            userfile.updateBalance(user, pass, amount, option);
                         }
 
                         case 3 -> {
-                            // Opción 3 (no implementada)
+                            System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese el monto a retirar: ");
+                            amount = sc.nextLine();
+                            op.verifyBalance(sc, amount);
+                            if (op.isIsEmpty()) {
+                                break;
+                            }
+                            option=2; // RETIRO
+                            userfile.updateBalance(user, pass, amount, option);
                         }
 
                         case 4 -> {
-                            // Transferir saldo (se usa un valor fijo de 2000 y un número de cuenta de
-                            // ejemplo)
                             userfile.transferBalance(user, pass, "914905813", "2000");
                         }
 
@@ -157,7 +167,7 @@ public class Main {
 
                         default -> System.err.println("Opcion no reconocida!");
                     }
-                } while (option != 5); // Continuar mostrando el menú de operaciones hasta que el usuario elija salir
+                } while (option != 5); // Continuar mostrando el menú de operaciones hasta que el usuario elija cerrar sesion
             }
         } while (option != 3); // Continuar mostrando el menú principal hasta que el usuario elija salir
 
