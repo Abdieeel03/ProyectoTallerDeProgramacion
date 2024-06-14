@@ -127,7 +127,7 @@ public class FileIO {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data[0].equals(user) && data[1].equals(pass)) {
-                    userBalance=Double.parseDouble(data[3]);
+                    userBalance = Double.parseDouble(data[3]);
                     switch (option) {
                         case 1:
                             newBalance = userBalance + (Double.parseDouble(amount));
@@ -135,7 +135,7 @@ public class FileIO {
                             line = String.join(",", data);
                             break;
                         case 2:
-                            if (userBalance==0){
+                            if (userBalance == 0) {
                                 System.err.println("No tiene saldo suficiente para realizar esta operación!");
                                 return;
                             }
@@ -185,10 +185,6 @@ public class FileIO {
                 String[] data = line.split(",");
                 if (data[0].equals(user) && data[1].equals(pass)) {
                     userBalance = Double.parseDouble(data[3]);
-                    if (data[2].equals(destinationAccount)) {
-                        System.err.println("No puede ingresar su propio número de cuenta.");
-                        return;
-                    }
                     if (userBalance < transferAmount) {
                         System.err.println("Error: Saldo insuficiente para realizar la transferencia.");
                         return;

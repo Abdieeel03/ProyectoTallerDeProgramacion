@@ -103,7 +103,7 @@ public class MainMenu {
         MainMenu.pass = pass;
     }
 
-    public String getAccountnumber() {
+    public static String getAccountnumber() {
         return accountnumber;
     }
 

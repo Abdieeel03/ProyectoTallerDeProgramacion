@@ -139,7 +139,7 @@ public class Main {
                             if (op.isIsEmpty()) {
                                 break;
                             }
-                            option=1; // DEPOSITO
+                            option = 1; // DEPOSITO
                             userfile.updateBalance(user, pass, amount, option);
                         }
 
@@ -150,13 +150,26 @@ public class Main {
                             if (op.isIsEmpty()) {
                                 break;
                             }
-                            option=2; // RETIRO
+                            option = 2; // RETIRO
                             userfile.updateBalance(user, pass, amount, option);
                         }
 
                         case 4 -> {
-                            System.out.println("hola");
-                            userfile.transferBalance(user, pass, "914905813", "2000");
+                            System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese el número de cuenta destino: ");
+                            accountnumber = sc.nextLine();
+                            op.verifyAccount(sc, accountnumber);
+                            if (op.isIsEmpty()) {
+                                break;
+                            }
+
+                            System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese el monto a transferir: ");
+                            amount = sc.nextLine();
+                            op.verifyBalance(sc, amount);
+                            if (op.isIsEmpty()) {
+                                break;
+                            }
+
+                            userfile.transferBalance(user, pass, accountnumber, amount);
                         }
 
                         case 5 -> {
@@ -168,7 +181,8 @@ public class Main {
 
                         default -> System.err.println("Opcion no reconocida!");
                     }
-                } while (option != 5); // Continuar mostrando el menú de operaciones hasta que el usuario elija cerrar sesion
+                } while (option != 5); // Continuar mostrando el menú de operaciones hasta que el usuario elija cerrar
+                                       // sesion
             }
         } while (option != 3); // Continuar mostrando el menú principal hasta que el usuario elija salir
 

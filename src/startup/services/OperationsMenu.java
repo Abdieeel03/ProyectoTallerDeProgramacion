@@ -28,7 +28,10 @@ public class OperationsMenu extends MainMenu {
             # SALDO RESTANTE : S/ %-20s#
             ###########################################
             """;
+    @SuppressWarnings("unused")
     private static String amount;
+    @SuppressWarnings("unused")
+    private static String destinationAccount;
 
     public OperationsMenu(String user, String accountnumber, String balance) {
         super(user, accountnumber, balance);
@@ -58,7 +61,7 @@ public class OperationsMenu extends MainMenu {
         }
         return isEmpty;
     }
-    
+
     @Override
     public void verifyBalance(Scanner sc, String amount) {
         MainMenu.isEmpty = false;
@@ -82,6 +85,61 @@ public class OperationsMenu extends MainMenu {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean isEmptyAccount(String accountnumber) {
+        isEmpty = false;
+        if (accountnumber.isEmpty()) {
+            System.err.println("Operación cancelada!");
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    @Override
+    public void verifyAccount(Scanner sc, String accountnumber) {
+        MainMenu.isEmpty = false;
+        if (isEmptyAccount(accountnumber)) {
+            MainMenu.isEmpty = true;
+            return;
+        }
+        while (true) {
+            try {
+                @SuppressWarnings("unused")
+                Integer canBeInteger = Integer.valueOf(accountnumber);
+                if (accountnumber.length() != 8) {
+                    System.err.println("El número de cuenta debe tener exactamente 8 digitos.");
+                    System.out.print(DEFAULTTEXT_1 + "Ingrese el número de cuenta destino: ");
+                    accountnumber = sc.nextLine();
+                    if (isEmptyAccount(accountnumber)) {
+                        MainMenu.isEmpty = true;
+                        return;
+                    }
+                    continue;
+                } else if (accountnumber.equals(MainMenu.getAccountnumber())) {
+                    System.err.println("No puede ingresar su mismo número de cuenta.");
+                    System.out.print(DEFAULTTEXT_1 + "Ingrese el número de cuenta destino: ");
+                    accountnumber = sc.nextLine();
+                    if (isEmptyAccount(accountnumber)) {
+                        MainMenu.isEmpty = true;
+                        return;
+                    }
+                    continue;
+                }
+                OperationsMenu.destinationAccount = accountnumber;
+                return;
+            } catch (NumberFormatException e) {
+                System.err.println("El valor ingresado no es un número válido.");
+                System.out.print(DEFAULTTEXT_1 + "Ingrese el número de cuenta destino: ");
+                accountnumber = sc.nextLine();
+                if (isEmptyAccount(accountnumber)) {
+                    MainMenu.isEmpty = true;
+                    return;
+                }
+            }
+        }
+
     }
 
 }
