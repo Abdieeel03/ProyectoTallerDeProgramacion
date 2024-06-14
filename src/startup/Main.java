@@ -4,7 +4,7 @@ import java.util.Scanner;
 import startup.services.*;
 
 /**
- * @author Abdieeel
+ * @autor Abdieeel
  */
 public class Main {
 
@@ -35,7 +35,7 @@ public class Main {
                 sc.nextLine(); // LIMPIA EL BUFFER
             } catch (Exception e) {
                 // Manejo de error si la entrada no es numérica
-                System.err.print("Error: Debe ingresar una opcion númerica!");
+                System.err.print("Error: Debe ingresar una opción numérica!");
                 sc.nextLine(); // LIMPIA EL BUFFER
                 continue;
             }
@@ -77,7 +77,7 @@ public class Main {
                         break;
                     }
 
-                    System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese su nuevo número de cuenta (8 digitos): ");
+                    System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese su nuevo número de cuenta (8 dígitos): ");
                     accountnumber = sc.nextLine();
                     mainMenu.verifyAccount(sc, accountnumber);
                     if (mainMenu.isIsEmpty()) {
@@ -105,7 +105,7 @@ public class Main {
                     break;
                 }
 
-                default -> System.err.println("Opcion no reconocida!");
+                default -> System.err.println("Opción no reconocida!");
             }
 
             // Si el usuario está autenticado, mostrar el menú de operaciones
@@ -118,7 +118,7 @@ public class Main {
                         sc.nextLine(); // LIMPIA EL BUFFER
                     } catch (Exception e) {
                         // Manejo de error si la entrada no es numérica
-                        System.err.print("Error: Debe ingresar una opcion númerica!");
+                        System.err.print("Error: Debe ingresar una opción numérica!");
                         sc.nextLine(); // LIMPIA EL BUFFER
                         continue;
                     }
@@ -133,17 +133,19 @@ public class Main {
                         }
 
                         case 2 -> {
+                            // Opción de depósito
                             System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese el monto a depositar: ");
                             amount = sc.nextLine();
                             op.verifyBalance(sc, amount);
                             if (op.isIsEmpty()) {
                                 break;
                             }
-                            option = 1; // DEPOSITO
+                            option = 1; // DEPÓSITO
                             userfile.updateBalance(user, pass, amount, option);
                         }
 
                         case 3 -> {
+                            // Opción de retiro
                             System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese el monto a retirar: ");
                             amount = sc.nextLine();
                             op.verifyBalance(sc, amount);
@@ -155,6 +157,7 @@ public class Main {
                         }
 
                         case 4 -> {
+                            // Opción de transferencia
                             System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese el número de cuenta destino: ");
                             accountnumber = sc.nextLine();
                             op.verifyAccount(sc, accountnumber);
@@ -179,10 +182,10 @@ public class Main {
                             isAuth = false; // Cambia el estado de autenticación
                         }
 
-                        default -> System.err.println("Opcion no reconocida!");
+                        default -> System.err.println("Opción no reconocida!");
                     }
                 } while (option != 5); // Continuar mostrando el menú de operaciones hasta que el usuario elija cerrar
-                                       // sesion
+                                       // sesión
             }
         } while (option != 3); // Continuar mostrando el menú principal hasta que el usuario elija salir
 
