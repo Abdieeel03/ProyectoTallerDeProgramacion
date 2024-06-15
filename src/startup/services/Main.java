@@ -1,7 +1,6 @@
-package startup;
+package startup.services;
 
 import java.util.Scanner;
-import startup.services.*;
 
 /**
  * @autor Abdieeel
