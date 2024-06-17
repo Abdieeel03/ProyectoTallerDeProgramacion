@@ -3,7 +3,11 @@ package startup.services;
 import java.util.Scanner;
 
 /**
- * @autor Abdieeel
+ * @author Abdieeel
+ * @author Cielo
+ * @author Sergio
+ * @author Milagros
+ * @author Benjamin
  */
 public class Main {
 

@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 /**
  * @author Abdieeel
+ * @author Cielo
+ * @author Sergio
+ * @author Milagros
+ * @author Benjamin
  */
 public class MainMenu {
 

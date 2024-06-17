@@ -9,6 +9,10 @@ import java.io.PrintWriter;
 
 /**
  * @author Abdieeel
+ * @author Cielo
+ * @author Sergio
+ * @author Milagros
+ * @author Benjamin
  */
 // Clase que controla el manejo del archivo que aloja los datos de usuario
 public class FileIO {
