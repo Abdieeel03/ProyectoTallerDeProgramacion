@@ -46,10 +46,10 @@ public class Main {
                     // Opción de login
                     System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese su usuario: ");
                     user = sc.nextLine();
-
                     if (mainMenu.isEmptyUser(user)) {
                         break;
                     }
+
                     System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese la contraseña: ");
                     pass = sc.nextLine();
                     if (mainMenu.isEmptyPass(pass)) {
@@ -58,6 +58,7 @@ public class Main {
 
                     // Intentar iniciar sesión
                     isAuth = mainMenu.login(user, pass);
+                    break;
                 }
 
                 case 2 -> {
@@ -94,6 +95,7 @@ public class Main {
                     mainMenu.register();
                     System.err.print("Presione enter para continuar...");
                     sc.nextLine();
+                    break;
                 }
 
                 case 3 -> {
@@ -187,7 +189,6 @@ public class Main {
                                        // sesión
             }
         } while (option != 3); // Continuar mostrando el menú principal hasta que el usuario elija salir
-
     }
 
 }
