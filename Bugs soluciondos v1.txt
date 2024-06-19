@@ -1,0 +1,4 @@
+-Actualizar estado de cuenta (Solucionado) ✅
+-Error al depositar después de un string (Solucionado) ✅
+-Cambiar el texto del retiro realizado (Solucionado) ✅
+-Número de cuenta no existente (Transferencia) (Solucionado) ✅

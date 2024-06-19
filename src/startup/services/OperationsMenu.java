@@ -41,6 +41,8 @@ public class OperationsMenu extends MainMenu {
     @SuppressWarnings("unused")
     private static String destinationAccount; // Variable estática para la cuenta de destino
 
+    private static String newBalance;
+
     // Constructor que recibe usuario, número de cuenta y saldo
     public OperationsMenu(String user, String accountnumber, String balance) {
         super(user, accountnumber, balance);
@@ -60,9 +62,36 @@ public class OperationsMenu extends MainMenu {
         return REPORTACCOUNT;
     }
 
+    public static String getAmount() {
+        return amount;
+    }
+
+    public static void setAmount(String amount) {
+        OperationsMenu.amount = amount;
+    }
+
+    public static String getDestinationAccount() {
+        return destinationAccount;
+    }
+
+    public static void setDestinationAccount(String destinationAccount) {
+        OperationsMenu.destinationAccount = destinationAccount;
+    }
+
+    public static String getNewBalance() {
+        return newBalance;
+    }
+
+    public static void setNewBalance(String newBalance) {
+        OperationsMenu.newBalance = newBalance;
+    }
+
     // Método para generar el estado de cuenta formateado
     public String stateAccount() {
-        return String.format(getREPORTACCOUNT(), getUser(), getBalance());
+        if (getNewBalance()==null){
+            setNewBalance(getBalance());
+        }
+        return String.format(getREPORTACCOUNT(), getUser(), getNewBalance());
     }
 
     // Sobrescribir el método isEmptyBalance para verificar si el balance está vacío
@@ -88,7 +117,7 @@ public class OperationsMenu extends MainMenu {
             try {
                 @SuppressWarnings("unused")
                 Double canBeDouble = Double.valueOf(amount);
-                OperationsMenu.amount = amount;
+                setAmount(amount);
                 return;
             } catch (NumberFormatException e) {
                 System.err.println("El valor ingresado no es un número válido.");
@@ -146,7 +175,7 @@ public class OperationsMenu extends MainMenu {
                     }
                     continue;
                 }
-                OperationsMenu.destinationAccount = accountnumber;
+                setDestinationAccount(accountnumber);
                 return;
             } catch (NumberFormatException e) {
                 System.err.println("El valor ingresado no es un número válido.");

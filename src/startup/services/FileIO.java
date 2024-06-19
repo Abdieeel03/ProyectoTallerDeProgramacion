@@ -58,7 +58,7 @@ public class FileIO {
         boolean userFound = false; // Variable para indicar si el usuario fue encontrado
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file))) {
             while ((readedLine = reader.readLine()) != null) {
-                String readedData[] = readedLine.split(",");
+                String[] readedData = readedLine.split(",");
                 if (readedData[0].equals(user) && readedData[1].equals(pass)) {
                     userFound = true;
                     mainMenu.setUser(readedData[0]);
@@ -84,7 +84,7 @@ public class FileIO {
         boolean userFound = false; // Variable para indicar si el usuario fue encontrado
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file))) {
             while ((readedLine = reader.readLine()) != null) {
-                String readedData[] = readedLine.split(",");
+                String[] readedData = readedLine.split(",");
                 if (readedData[0].equals(user)) {
                     userFound = true;
                     mainMenu.setUserFound(userFound);
@@ -105,7 +105,7 @@ public class FileIO {
         boolean accountFound = false; // Variable para indicar si la cuenta fue encontrada
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file))) {
             while ((readedLine = reader.readLine()) != null) {
-                String readedData[] = readedLine.split(",");
+                String[] readedData = readedLine.split(",");
                 if (readedData[2].equals(accountnumber)) {
                     accountFound = true;
                     mainMenu.setAccountFound(accountFound);
@@ -122,10 +122,10 @@ public class FileIO {
     }
 
     // Método para actualizar el saldo y guardarlo en el archivo
-    public void updateBalance(String user, String pass, String amount, int option) {
+    public void updateBalance(String user, String pass, int option) {
         double userBalance, newBalance;
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file));
-                PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
+             PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
@@ -133,8 +133,9 @@ public class FileIO {
                     userBalance = Double.parseDouble(data[3]);
                     switch (option) {
                         case 1:
-                            newBalance = userBalance + (Double.parseDouble(amount));
-                            data[3] = String.valueOf(newBalance); // Actualiza el saldo
+                            newBalance = userBalance + (Double.parseDouble(OperationsMenu.getAmount()));
+                            data[3] = String.valueOf(newBalance); // Actualiza el saldo en el archivo
+                            OperationsMenu.setNewBalance(String.valueOf(newBalance));
                             line = String.join(",", data);
                             break;
                         case 2:
@@ -142,8 +143,9 @@ public class FileIO {
                                 System.err.println("No tiene saldo suficiente para realizar esta operación!");
                                 return;
                             }
-                            newBalance = (Double.parseDouble(data[3])) - (Double.parseDouble(amount));
-                            data[3] = String.valueOf(newBalance); // Actualiza el saldo
+                            newBalance = (Double.parseDouble(data[3])) - (Double.parseDouble(OperationsMenu.getAmount()));
+                            data[3] = String.valueOf(newBalance); // Actualiza el saldo en el archivo
+                            OperationsMenu.setNewBalance(String.valueOf(newBalance)); // Actualiza el saldo en la variable local
                             line = String.join(",", data);
                             break;
                     }
@@ -158,7 +160,7 @@ public class FileIO {
         if (usernames_file.delete()) {
             File tmpFile = new File(usernames_file + ".tmp");
             if (tmpFile.renameTo(usernames_file)) {
-                System.out.println("Deposito realizado correctamente!");
+                System.out.println("Acción realizada correctamente!");
             } else {
                 System.err.println("No se pudo actualizar el saldo.");
                 System.out.println("No se pudo renombrar el archivo temporal.");
@@ -170,11 +172,11 @@ public class FileIO {
     }
 
     // Método para transferir saldo entre cuentas y guardar el archivo
-    public void transferBalance(String user, String pass, String destinationAccount, String amount) {
+    public void transferBalance(String user, String pass) {
         boolean accountFound = false; // Variable para indicar si la cuenta destino fue encontrada
-        double transferAmount = Double.parseDouble(amount); // Monto a transferir
-        double userBalance = 0.0; // Saldo del usuario
-        double destinationBalance = 0.0; // Saldo de la cuenta destino
+        double transferAmount = Double.parseDouble(OperationsMenu.getAmount()); // Monto a transferir
+        double userBalance; // Saldo del usuario
+        double destinationBalance; // Saldo de la cuenta destino
         @SuppressWarnings("unused")
         String destinationUser = ""; // Usuario de la cuenta destino
         @SuppressWarnings("unused")
@@ -182,7 +184,7 @@ public class FileIO {
 
         // Leer y procesar el archivo
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file));
-                PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
+             PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
@@ -193,15 +195,14 @@ public class FileIO {
                         return;
                     }
                     userBalance -= transferAmount;
-                    data[3] = String.valueOf(userBalance);
+                    data[3] = String.valueOf(userBalance); //Guarda el saldo en el archivo
+                    OperationsMenu.setNewBalance(String.valueOf(userBalance)); // Actualiza el saldo en la variable
                     line = String.join(",", data);
-                } else if (data[2].equals(destinationAccount)) {
+                } else if (data[2].equals(OperationsMenu.getDestinationAccount())) {
                     accountFound = true;
-                    destinationUser = data[0];
-                    destinationPass = data[1];
                     destinationBalance = Double.parseDouble(data[3]);
                     destinationBalance += transferAmount;
-                    data[3] = String.valueOf(destinationBalance);
+                    data[3] = String.valueOf(destinationBalance);// Guarda el saldo del destinatario en el archivo
                     line = String.join(",", data);
                 }
                 writer.println(line);

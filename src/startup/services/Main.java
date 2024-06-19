@@ -146,7 +146,8 @@ public class Main {
                                 break;
                             }
                             option = 1; // DEPÓSITO
-                            userfile.updateBalance(user, pass, amount, option);
+                            userfile.updateBalance(user, pass, option);
+                            System.out.println(OperationsMenu.getAmount());
                         }
 
                         case 3 -> {
@@ -158,7 +159,7 @@ public class Main {
                                 break;
                             }
                             option = 2; // RETIRO
-                            userfile.updateBalance(user, pass, amount, option);
+                            userfile.updateBalance(user, pass, option);
                         }
 
                         case 4 -> {
@@ -177,7 +178,7 @@ public class Main {
                                 break;
                             }
 
-                            userfile.transferBalance(user, pass, accountnumber, amount);
+                            userfile.transferBalance(user, pass);
                         }
 
                         case 5 -> {
