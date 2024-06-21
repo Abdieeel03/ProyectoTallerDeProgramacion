@@ -88,7 +88,7 @@ public class OperationsMenu extends MainMenu {
 
     // Método para generar el estado de cuenta formateado
     public String stateAccount() {
-        if (getNewBalance()==null){
+        if (getNewBalance() == null) {
             setNewBalance(getBalance());
         }
         return String.format(getREPORTACCOUNT(), getUser(), getAccountnumber(), getNewBalance());

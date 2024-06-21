@@ -179,8 +179,8 @@ public class MainMenu {
         }
     }
 
-    public void verifyPass(Scanner sc, String pass){
-        while (pass.length()>12 || pass.length()<5){
+    public void verifyPass(Scanner sc, String pass) {
+        while (pass.length() > 12 || pass.length() < 5) {
             System.err.println("La contraseña debe terer como minimo 5 digitos y como maximo 12.");
             System.out.print(getDEFAULTTEXT_1() + "Ingrese la contraseña: ");
             pass = sc.nextLine();
@@ -263,10 +263,10 @@ public class MainMenu {
         }
     }
 
-    public int generateAccount(){
-        int randomaccountnumber=89800000;
+    public int generateAccount() {
+        int randomaccountnumber = 89800000;
         Random random = new Random();
-        randomaccountnumber+=random.nextInt(99999);
+        randomaccountnumber += random.nextInt(99999);
         return randomaccountnumber;
     }
 
