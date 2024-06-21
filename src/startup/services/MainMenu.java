@@ -1,5 +1,6 @@
 package startup.services;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -99,10 +100,6 @@ public class MainMenu {
     }
 
     public void setPass(String pass) {
-        if (isEmptyPass(pass)) {
-            MainMenu.isEmpty = true;
-            return;
-        }
         MainMenu.pass = pass;
     }
 
@@ -183,6 +180,19 @@ public class MainMenu {
         }
     }
 
+    public void verifyPass(Scanner sc, String pass){
+        while (pass.length()>12 || pass.length()<5){
+            System.err.println("La contraseña debe terer como minimo 5 digitos y como maximo 12.");
+            System.out.print(getDEFAULTTEXT_1() + "Ingrese la contraseña: ");
+            pass = sc.nextLine();
+            if (isEmptyPass(pass)) {
+                MainMenu.isEmpty = true;
+                return;
+            }
+        }
+        MainMenu.pass = pass;
+    }
+
     // Método para verificar la disponibilidad del número de cuenta
     public void verifyAccount(Scanner sc, String accountnumber) {
         MainMenu.isEmpty = false;
@@ -254,17 +264,24 @@ public class MainMenu {
         }
     }
 
+    public int generateAccount(){
+        int randomaccountnumber=89800000;
+        Random random = new Random();
+        randomaccountnumber+=random.nextInt(99999);
+        return randomaccountnumber;
+    }
+
     // Método para registrar un nuevo usuario
     public void register() {
         if (user.isEmpty()) {
             return;
         }
-        if (accountnumber.isEmpty()) {
-            return;
-        }
+
         if (balance.isEmpty()) {
             return;
         }
+
+        setAccountnumber(String.valueOf(generateAccount()));
         userfile.saveData(user, pass, accountnumber, balance);
     }
 

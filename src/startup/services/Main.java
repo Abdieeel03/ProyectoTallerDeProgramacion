@@ -76,14 +76,7 @@ public class Main {
 
                     System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese la contraseña: ");
                     pass = sc.nextLine();
-                    mainMenu.setPass(pass);
-                    if (mainMenu.isIsEmpty()) {
-                        break;
-                    }
-
-                    System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese su nuevo número de cuenta (8 dígitos): ");
-                    accountnumber = sc.nextLine();
-                    mainMenu.verifyAccount(sc, accountnumber);
+                    mainMenu.verifyPass(sc, pass);
                     if (mainMenu.isIsEmpty()) {
                         break;
                     }
@@ -191,7 +184,7 @@ public class Main {
                         default -> System.err.println("Opción no reconocida!");
                     }
                 } while (option != 5); // Continuar mostrando el menú de operaciones hasta que el usuario elija cerrar
-                                       // sesión
+                // sesión
             }
         } while (option != 3); // Continuar mostrando el menú principal hasta que el usuario elija salir
     }

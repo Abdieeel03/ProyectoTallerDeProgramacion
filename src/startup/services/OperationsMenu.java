@@ -32,7 +32,8 @@ public class OperationsMenu extends MainMenu {
             # ESTADO DE CUENTA                        #
             ###########################################
             # USUARIO : %-30s#
-            # SALDO RESTANTE : S/ %-20s#
+            # NUMERO DE CUENTA : %-21s#
+            # SALDO DISPONIBLE : S/ %-18s#
             ###########################################
             """;
 
@@ -91,7 +92,7 @@ public class OperationsMenu extends MainMenu {
         if (getNewBalance()==null){
             setNewBalance(getBalance());
         }
-        return String.format(getREPORTACCOUNT(), getUser(), getNewBalance());
+        return String.format(getREPORTACCOUNT(), getUser(), getAccountnumber(), getNewBalance());
     }
 
     // Sobrescribir el método isEmptyBalance para verificar si el balance está vacío

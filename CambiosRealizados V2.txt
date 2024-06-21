@@ -1,0 +1,11 @@
+V1:
+BUGS ARREGLADOS:
+-Actualizar estado de cuenta (Solucionado) ✅
+-Error al depositar después de un string (Solucionado) ✅
+-Cambiar el texto del retiro realizado (Solucionado) ✅
+-Número de cuenta no existente (Transferencia) (Solucionado) ✅
+V2:
+CAMBIOS REALIZADOS:
+-Generar aleatoriamente los números de cuenta ✅
+-Limitar la contraseña entre 5 a 12 digitos ✅
+-Saldo restante a Saldo Disponible ✅
