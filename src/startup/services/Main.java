@@ -7,7 +7,6 @@ import java.util.Scanner;
  * @author Cielo
  * @author Sergio
  * @author Milagros
- * @author Benjamin
  */
 public class Main {
 
