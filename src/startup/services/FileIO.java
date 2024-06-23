@@ -176,10 +176,7 @@ public class FileIO {
         double transferAmount = Double.parseDouble(OperationsMenu.getAmount()); // Monto a transferir
         double userBalance; // Saldo del usuario
         double destinationBalance; // Saldo de la cuenta destino
-        @SuppressWarnings("unused")
-        String destinationUser = ""; // Usuario de la cuenta destino
-        @SuppressWarnings("unused")
-        String destinationPass = ""; // Contraseña de la cuenta destino
+        String destinationUser; // Usuario de la cuenta destino
 
         // Leer y procesar el archivo
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file));
@@ -200,6 +197,8 @@ public class FileIO {
                 } else if (data[2].equals(OperationsMenu.getDestinationAccount())) {
                     accountFound = true;
                     destinationBalance = Double.parseDouble(data[3]);
+                    destinationUser = data[0];
+                    OperationsMenu.setDestinationUser(destinationUser); // Guarda el nombre del usuario destino
                     destinationBalance += transferAmount;
                     data[3] = String.valueOf(destinationBalance);// Guarda el saldo del destinatario en el archivo
                     line = String.join(",", data);
@@ -213,6 +212,12 @@ public class FileIO {
 
         if (!accountFound) {
             System.err.println("Error: Número de cuenta destino no encontrado.");
+            return;
+        }
+
+        // Confirmar Transacción
+        OperationsMenu.confirmTransaction();
+        if (!OperationsMenu.isConfirmedOp()){
             return;
         }
 

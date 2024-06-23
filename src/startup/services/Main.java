@@ -49,13 +49,13 @@ public class Main {
                     // Opción de login
                     System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese su usuario: ");
                     user = sc.nextLine();
-                    if (mainMenu.isEmptyUser(user)) {
+                    if (mainMenu.isEmptyEntry(user)) {
                         break;
                     }
 
                     System.out.print(mainMenu.getDEFAULTTEXT_1() + "Ingrese la contraseña: ");
                     pass = sc.nextLine();
-                    if (mainMenu.isEmptyPass(pass)) {
+                    if (mainMenu.isEmptyEntry(pass)) {
                         break;
                     }
 

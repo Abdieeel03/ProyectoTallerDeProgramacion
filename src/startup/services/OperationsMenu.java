@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author Milagros
  */
 public class OperationsMenu extends MainMenu {
-
+    private static Scanner sc = new Scanner(System.in);
     // Instancia del objeto FileIO para manejo de archivos
     FileIO userfile = new FileIO();
 
@@ -40,8 +40,15 @@ public class OperationsMenu extends MainMenu {
     private static String amount; // Variable estática para el monto
     @SuppressWarnings("unused")
     private static String destinationAccount; // Variable estática para la cuenta de destino
+    private static String destinationUser; // Variable estática para el nombre de usuario destino
+    private static String newBalance; // Variable estática para almacenar el nuevo saldo
+    private static boolean confirmedOp; // Variable estática para el valor de confirmado
 
-    private static String newBalance;
+    // Formato de texto para la confirmación
+    private static final String CONFIRM_TEXT = """
+            El número de cuenta destino pertenece a %s.
+            ¿Desea continuar con la operación? [y/n]:
+            """;
 
     // Constructor que recibe usuario, número de cuenta y saldo
     public OperationsMenu(String user, String accountnumber, String balance) {
@@ -62,6 +69,14 @@ public class OperationsMenu extends MainMenu {
         return REPORTACCOUNT;
     }
 
+    public static boolean isConfirmedOp() {
+        return confirmedOp;
+    }
+
+    public static void setConfirmedOp(boolean confirmedOp) {
+        OperationsMenu.confirmedOp = confirmedOp;
+    }
+
     public static String getAmount() {
         return amount;
     }
@@ -76,6 +91,14 @@ public class OperationsMenu extends MainMenu {
 
     public static void setDestinationAccount(String destinationAccount) {
         OperationsMenu.destinationAccount = destinationAccount;
+    }
+
+    public static String getDestinationUser() {
+        return destinationUser;
+    }
+
+    public static void setDestinationUser(String destinationUser) {
+        OperationsMenu.destinationUser = destinationUser;
     }
 
     public static String getNewBalance() {
@@ -96,7 +119,7 @@ public class OperationsMenu extends MainMenu {
 
     // Sobrescribir el método isEmptyBalance para verificar si el balance está vacío
     @Override
-    public boolean isEmptyBalance(String amount) {
+    public boolean isEmptyEntry(String amount) {
         isEmpty = false;
         if (amount.isEmpty()) {
             System.err.println("Operación cancelada!");
@@ -108,9 +131,7 @@ public class OperationsMenu extends MainMenu {
     // Sobrescribir el método verifyBalance para verificar y validar el balance
     @Override
     public void verifyBalance(Scanner sc, String amount) {
-        MainMenu.isEmpty = false;
-        if (isEmptyBalance(amount)) {
-            MainMenu.isEmpty = true;
+        if (isEmptyEntry(amount)) {
             return;
         }
         while (true) {
@@ -123,33 +144,17 @@ public class OperationsMenu extends MainMenu {
                 System.err.println("El valor ingresado no es un número válido.");
                 System.out.print(DEFAULTTEXT_1 + "Ingrese el monto: ");
                 amount = sc.nextLine();
-                if (isEmptyBalance(amount)) {
-                    MainMenu.isEmpty = true;
+                if (isEmptyEntry(amount)) {
                     break;
                 }
             }
         }
     }
 
-    // Sobrescribir el método isEmptyAccount para verificar si el número de cuenta
-    // está vacío
-    @Override
-    public boolean isEmptyAccount(String accountnumber) {
-        isEmpty = false;
-        if (accountnumber.isEmpty()) {
-            System.err.println("Operación cancelada!");
-            isEmpty = true;
-        }
-        return isEmpty;
-    }
-
-    // Sobrescribir el método verifyAccount para verificar y validar el número de
-    // cuenta
+    // Sobrescribir el método verifyAccount para verificar y validar el número de cuenta
     @Override
     public void verifyAccount(Scanner sc, String accountnumber) {
-        MainMenu.isEmpty = false;
-        if (isEmptyAccount(accountnumber)) {
-            MainMenu.isEmpty = true;
+        if (isEmptyEntry(accountnumber)) {
             return;
         }
         while (true) {
@@ -160,8 +165,7 @@ public class OperationsMenu extends MainMenu {
                     System.err.println("El número de cuenta debe tener exactamente 8 dígitos.");
                     System.out.print(DEFAULTTEXT_1 + "Ingrese el número de cuenta destino: ");
                     accountnumber = sc.nextLine();
-                    if (isEmptyAccount(accountnumber)) {
-                        MainMenu.isEmpty = true;
+                    if (isEmptyEntry(accountnumber)) {
                         return;
                     }
                     continue;
@@ -169,8 +173,7 @@ public class OperationsMenu extends MainMenu {
                     System.err.println("No puede ingresar su mismo número de cuenta.");
                     System.out.print(DEFAULTTEXT_1 + "Ingrese el número de cuenta destino: ");
                     accountnumber = sc.nextLine();
-                    if (isEmptyAccount(accountnumber)) {
-                        MainMenu.isEmpty = true;
+                    if (isEmptyEntry(accountnumber)) {
                         return;
                     }
                     continue;
@@ -181,12 +184,29 @@ public class OperationsMenu extends MainMenu {
                 System.err.println("El valor ingresado no es un número válido.");
                 System.out.print(DEFAULTTEXT_1 + "Ingrese el número de cuenta destino: ");
                 accountnumber = sc.nextLine();
-                if (isEmptyAccount(accountnumber)) {
-                    MainMenu.isEmpty = true;
+                if (isEmptyEntry(accountnumber)) {
                     return;
                 }
             }
         }
     }
 
+    // Método para confirmar la transacción
+    public static void confirmTransaction(){
+        String option;
+        do {
+            System.out.printf(CONFIRM_TEXT,getDestinationUser());
+            option = sc.nextLine();
+            if (option.equalsIgnoreCase("y")){
+                OperationsMenu.confirmedOp = true;
+                return;
+            } else if (option.equalsIgnoreCase("n")){
+                OperationsMenu.confirmedOp = false;
+                System.err.println("Transferencia cancelada!");
+                return;
+            } else {
+                System.err.println("Por favor ingrese una opción valida");
+            }
+        } while (!option.equalsIgnoreCase("y") && !option.equalsIgnoreCase("n"));
+    }
 }

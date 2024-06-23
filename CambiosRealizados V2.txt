@@ -7,5 +7,9 @@ BUGS ARREGLADOS:
 V2:
 CAMBIOS REALIZADOS:
 -Generar aleatoriamente los números de cuenta ✅
--Limitar la contraseña entre 5 a 12 digitos ✅
+-Limitar la contraseña entre 5 a 12 dígitos ✅
 -Saldo restante a Saldo Disponible ✅
+V3:
+CAMBIOS REALIZADOS:
+-Eliminar código repetitivo ✅
+-Se añadió una confirmación de la transacción antes de realizar la transferencia. ✅
