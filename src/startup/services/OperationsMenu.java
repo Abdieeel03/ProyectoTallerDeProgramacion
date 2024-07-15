@@ -138,6 +138,12 @@ public class OperationsMenu extends MainMenu {
             try {
                 @SuppressWarnings("unused")
                 Double canBeDouble = Double.valueOf(amount);
+                if(canBeDouble<0){
+                    System.out.println("El valor ingresado no es un número válido.");
+                    System.out.print(DEFAULTTEXT_1 + "Ingrese su saldo inicial: ");
+                    amount = sc.nextLine();
+                    continue;
+                }
                 setAmount(amount);
                 return;
             } catch (NumberFormatException e) {

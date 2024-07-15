@@ -211,6 +211,12 @@ public class MainMenu {
             try {
                 @SuppressWarnings("unused")
                 Double canBeDouble = Double.valueOf(balance);
+                if(canBeDouble<0){
+                    System.out.println("El valor ingresado no es un número válido.");
+                    System.out.print(DEFAULTTEXT_1 + "Ingrese su saldo inicial: ");
+                    balance = sc.nextLine();
+                    continue;
+                }
                 MainMenu.balance = balance;
                 return;
             } catch (NumberFormatException e) {
