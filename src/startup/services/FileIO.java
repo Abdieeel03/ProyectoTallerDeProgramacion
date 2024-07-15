@@ -124,7 +124,7 @@ public class FileIO {
     public void updateBalance(String user, String pass, int option) {
         double userBalance, newBalance;
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file));
-             PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
+            PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
@@ -180,7 +180,7 @@ public class FileIO {
 
         // Leer y procesar el archivo
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file));
-             PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
+            PrintWriter writer = new PrintWriter(new FileWriter(usernames_file + ".tmp"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
