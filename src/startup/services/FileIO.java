@@ -100,7 +100,7 @@ public class FileIO {
     }
 
     // Método que solo lee el número de cuenta
-    public void readOnlyAccount(String accountnumber) {
+/*    public void readOnlyAccount(String accountnumber) {
         boolean accountFound = false; // Variable para indicar si la cuenta fue encontrada
         try (BufferedReader reader = new BufferedReader(new FileReader(usernames_file))) {
             while ((readedLine = reader.readLine()) != null) {
@@ -119,7 +119,8 @@ public class FileIO {
             mainMenu.setAccountFound(accountFound);
         }
     }
-
+*/
+    
     // Método para actualizar el saldo y guardarlo en el archivo
     public void updateBalance(String user, String pass, int option) {
         double userBalance, newBalance;

@@ -162,7 +162,7 @@ public class MainMenu {
     }
 
     // Método para verificar la disponibilidad del número de cuenta
-    public void verifyAccount(Scanner sc, String accountnumber) {
+/*    public void verifyAccount(Scanner sc, String accountnumber) {
         if (isEmptyEntry(accountnumber)) {
             return;
         }
@@ -201,7 +201,7 @@ public class MainMenu {
             }
         }
     }
-
+*/
     // Método para verificar la validez del saldo inicial
     public void verifyBalance(Scanner sc, String balance) {
         if (isEmptyEntry(balance)) {

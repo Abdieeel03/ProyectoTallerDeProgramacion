@@ -140,7 +140,7 @@ public class OperationsMenu extends MainMenu {
                 Double canBeDouble = Double.valueOf(amount);
                 if(canBeDouble<0){
                     System.out.println("El valor ingresado no es un número válido.");
-                    System.out.print(DEFAULTTEXT_1 + "Ingrese su saldo inicial: ");
+                    System.out.print(DEFAULTTEXT_1 + "Ingrese el monto: ");
                     amount = sc.nextLine();
                     continue;
                 }
@@ -158,7 +158,6 @@ public class OperationsMenu extends MainMenu {
     }
 
     // Sobrescribir el método verifyAccount para verificar y validar el número de cuenta
-    @Override
     public void verifyAccount(Scanner sc, String accountnumber) {
         if (isEmptyEntry(accountnumber)) {
             return;
